@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Divine Dress Rentals</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#fff8f2;color:#342337}
+header{padding:55px 20px;text-align:center;color:white;background:linear-gradient(135deg,#7626b8,#ef5b8d)}
+h1{font-size:clamp(2.3rem,8vw,4.5rem);margin:12px 0}header p{max-width:720px;margin:auto;font-size:1.1rem}
+.badge{display:inline-block;border:1px solid #ffffff88;background:#ffffff22;padding:8px 15px;border-radius:999px;font-weight:800}
+nav{position:sticky;top:0;z-index:5;background:white;padding:14px;text-align:center;box-shadow:0 3px 15px #0001}
+nav a{margin:0 12px;color:#7626b8;font-weight:800;text-decoration:none}
+.wrap{max-width:1150px;margin:auto;padding:28px 18px}
+.notice{background:#fff0d5;border-left:5px solid #f4a62a;border-radius:12px;padding:17px;margin-bottom:28px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0 22px}
+input,select{padding:12px 14px;border:1px solid #e5d5e8;border-radius:12px;background:white;font-size:1rem}
+input{flex:1;min-width:220px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:18px}
+.card{background:white;border:1px solid #f0dfeb;border-radius:22px;padding:20px;box-shadow:0 8px 26px #54205d12}
+.icon{font-size:50px}.card h3{margin:10px 0 5px}.card p{color:#705e68;min-height:48px}
+.price{font-size:1.35rem;font-weight:900;color:#7626b8}.deposit{color:#a65b00;font-size:.9rem;margin-top:6px}
+.small{color:#76666e;font-size:.9rem}footer{text-align:center;padding:35px;color:#76666e}
+</style>
+</head>
+<body>
+<header>
+<span class="badge">Costumes • Jewellery • Accessories</span>
+<h1>Divine Dress Rentals</h1>
+<p>Explore our collection of Ramayana, Mahabharata, Hindu deity, classical, Dandiya, kids' costumes and more.</p>
+</header>
+<nav><a href="#shop">Shop</a><a href="#policy">Rental Policy</a></nav>
+<main class="wrap">
+<div class="notice"><strong>Rental information:</strong> Displayed prices are rental prices. The security deposit is <strong>2× the rental price</strong> and is refundable after return according to your agreed return policy. This is a showcase website only — no online purchase or booking.</div>
+<section id="shop">
+<h2>Browse the collection</h2>
+<div class="toolbar">
+<input id="search" placeholder="Search costumes, skirts, jewellery..." oninput="render()">
+<select id="filter" onchange="render()"><option value="">All categories</option></select>
+</div>
+<div id="grid" class="grid"></div>
+</section>
+<section id="policy" class="notice" style="margin-top:35px">
+<h2>Rental Policy</h2>
+<ul>
+<li>No online purchasing or booking is available on this website.</li>
+<li>Rental price is shown for each item.</li>
+<li>Security deposit = 2 × rental price.</li>
+<li>The deposit is intended to be refunded after the item is returned in acceptable condition.</li>
+</ul>
+</section>
+</main>
+<footer>Divine Dress Rentals • Showcase Website</footer>
+<script>
+const products=[{"name": "Ramayana Costumes", "desc": "Ram, Sita, Hanuman, Lakshman & more", "price": 500, "icon": "🛕"}, {"name": "Mahabharata Costumes", "desc": "Krishna, Arjuna, Draupadi & more", "price": 600, "icon": "🏹"}, {"name": "Hindu God & Goddess Costumes", "desc": "Krishna, Shiva, Durga, Lakshmi & more", "price": 650, "icon": "🪷"}, {"name": "Classical Dresses", "desc": "Bharatanatyam, Kathak & traditional looks", "price": 550, "icon": "💃"}, {"name": "Dandiya & Garba Dresses", "desc": "Festival-ready colourful outfits", "price": 500, "icon": "🪅"}, {"name": "Cute Skirts & Frocks", "desc": "Cute kids' skirts, frocks & sets", "price": 450, "icon": "👗"}, {"name": "Animal Costumes", "desc": "Lion, tiger, rabbit, butterfly & more", "price": 500, "icon": "🦁"}, {"name": "Fruit Costumes", "desc": "Apple, mango, strawberry, watermelon & more", "price": 450, "icon": "🍎"}, {"name": "Shoes", "desc": "Costume and traditional footwear", "price": 200, "icon": "👟"}, {"name": "Jewellery & Accessories", "desc": "Crowns, necklaces, bangles, sashes & more", "price": 150, "icon": "👑"}];
+const filter=document.getElementById('filter');
+[...new Set(products.map(p=>p.name))].forEach(c=>filter.innerHTML+=`<option>${c}</option>`);
+function render(){
+ const q=document.getElementById('search').value.toLowerCase(), f=filter.value;
+ const list=products.filter(p=>(!q||(p.name+' '+p.desc).toLowerCase().includes(q))&&(!f||p.name===f));
+ document.getElementById('grid').innerHTML=list.map(p=>`
+ <article class="card">
+ <div class="icon">${p.icon}</div>
+ <h3>${p.name}</h3><p>${p.desc}</p>
+ <div class="price">₹${p.price} <span class="small">/ rental</span></div>
+ <div class="deposit">Refundable security deposit: ₹${p.price*2}</div>
+ </article>`).join('');
+}
+render();
+</script>
+</body>
+</html>
